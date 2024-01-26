@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { PlusIcon } from "@heroicons/react/20/solid";
+
+import { useModal } from "@/hooks";
 
 import { localStorage } from "@/utils";
 import { api } from "@/service";
@@ -14,6 +17,8 @@ import { IApiTodo } from "@/interfaces/api";
 export default function TodoListPage() {
   const router = useRouter();
   const [todos, setTodos] = useState<IApiTodo[]>([]);
+
+  const { CustomModal, openModal, closeModal } = useModal();
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -38,9 +43,20 @@ export default function TodoListPage() {
     <div className="flex flex-col items-center gap-6 min-w-[300px] max-w-[500px] w-[80%]">
       <h3>Todo</h3>
       <Todo.List todos={todos} onDelete={handleDelete} />
-      <Button color="secondary" size="lg" shadow>
+      <Button
+        className="flex justify-center items-center gap-2"
+        color="secondary"
+        size="lg"
+        shadow
+        onClick={openModal}
+      >
+        <PlusIcon className="h-6 w-6" aria-hidden="true" />
         Create
       </Button>
+
+      <CustomModal title="Test">
+        <div>Modal</div>
+      </CustomModal>
     </div>
   );
 }

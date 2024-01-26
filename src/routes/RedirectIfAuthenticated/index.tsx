@@ -3,8 +3,9 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import { IRedirectIfAuthenticatedProps } from "@/interfaces/routes";
 import { localStorage } from "@/utils";
+
+import { IRedirectIfAuthenticatedProps } from "@/interfaces/routes";
 
 export default function RedirectIfAuthenticated({ children }: IRedirectIfAuthenticatedProps) {
   const router = useRouter();
