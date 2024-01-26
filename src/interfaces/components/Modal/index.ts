@@ -5,3 +5,9 @@ export interface IModalProps {
   title?: string;
   type?: "info" | "success" | "warning" | "error";
 }
+
+export interface IModalContent {
+  type: "info" | "success" | "warning" | "error";
+  title: string;
+  content: React.ReactNode;
+}

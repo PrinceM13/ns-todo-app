@@ -7,22 +7,68 @@ import { useModal } from "@/hooks";
 
 import { api } from "@/service";
 
-import { Button } from "@/components/bases";
+import { Alert, Form } from "@/components/customs";
 
 import { IApiTodo } from "@/interfaces/api";
+import { ITodo } from "@/interfaces/components/Form";
 import { ITodoListProps } from "@/interfaces/components/Todo";
+import { IModalContent } from "@/interfaces/components/Modal";
 
-export default function TodoList({ todos, onDelete }: ITodoListProps) {
+const initialModal: IModalContent = {
+  type: "info",
+  title: "",
+  content: <></>
+};
+
+export default function TodoList({ todos, onDelete, onEdit }: ITodoListProps) {
   const { CustomModal, openModal, closeModal } = useModal();
-  const [currentTodo, setCurrentTodo] = useState<IApiTodo | null>();
 
-  const handleOpenDeleteModal = (todo: IApiTodo) => {
-    setCurrentTodo(todo);
+  const [modal, setModal] = useState<IModalContent>(initialModal);
+
+  const handleOpenEditModal = (todo: IApiTodo) => {
+    setModal({
+      type: "success",
+      title: "",
+      content: <Form.Todo value={todo} onSubmit={(newTodo) => handleEdit(newTodo)} isEdit />
+    });
     openModal();
   };
 
-  const handleDelete = async () => {
-    const id = currentTodo?._id ?? "";
+  const handleEdit = async (todo: ITodo) => {
+    const { _id = "", title = "", description = "" } = todo;
+    console.log(todo);
+    if (!_id) return;
+
+    try {
+      const res: IApiTodo = await api.todos.update({ id: _id, title, description });
+
+      // * update ui
+      onEdit(res);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      closeModal();
+      setModal(initialModal);
+    }
+  };
+
+  const handleOpenDeleteModal = (todo: IApiTodo) => {
+    const { _id } = todo;
+    setModal({
+      type: "error",
+      title: "Delete !",
+      content: (
+        <Alert.Delete
+          title={todo.title}
+          onCancel={closeModal}
+          onConfirm={() => handleDelete(_id)}
+        />
+      )
+    });
+    openModal();
+  };
+
+  const handleDelete = async (id: string) => {
     if (!id) return;
 
     try {
@@ -32,7 +78,7 @@ export default function TodoList({ todos, onDelete }: ITodoListProps) {
       console.log(err);
     } finally {
       closeModal();
-      setCurrentTodo(null);
+      setModal(initialModal);
     }
   };
 
@@ -43,11 +89,15 @@ export default function TodoList({ todos, onDelete }: ITodoListProps) {
           <div
             key={todo["_id"]}
             className="w-full relative px-4 py-2 md:px-8 md:py-4 rounded-lg bg-white shadow-lg"
+            onClick={() => handleOpenEditModal(todo)}
           >
             <XCircleIcon
               className="absolute top-[-10px] right-[-10px] h-8 w-8 text-rose-600 hover:text-rose-700 active:text-rose-800 cursor-pointer"
               aria-hidden="true"
-              onClick={() => handleOpenDeleteModal(todo)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleOpenDeleteModal(todo);
+              }}
             />
             <div>{todo.title}</div>
             <div>{todo.description}</div>
@@ -56,21 +106,8 @@ export default function TodoList({ todos, onDelete }: ITodoListProps) {
         );
       })}
 
-      <CustomModal title="Delete !" type="error">
-        <div className="flex flex-col gap-8 py-2">
-          <div>
-            Do you want to delete{" "}
-            <span className="text-rose-600 font-bold">{`" ${currentTodo?.title} "`}</span> ?
-          </div>
-          <div className="flex gap-2 self-end">
-            <Button variant="outlined" color="secondary" onClick={closeModal}>
-              Cancel
-            </Button>
-            <Button color="error" onClick={handleDelete}>
-              Delete
-            </Button>
-          </div>
-        </div>
+      <CustomModal title={modal.title} type={modal.type}>
+        {modal.content}
       </CustomModal>
     </div>
   );

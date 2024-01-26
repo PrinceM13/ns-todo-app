@@ -41,6 +41,17 @@ export default function TodoListPage() {
     setTodos(newTodos);
   };
 
+  const handleEdit = (newTodo: IApiTodo) => {
+    // * update ui
+    const newTodos = todos.map((todo) => {
+      if (todo["_id"] === newTodo._id) {
+        return newTodo;
+      }
+      return todo;
+    });
+    setTodos(newTodos);
+  };
+
   const handleCreate = async (todo: ITodo) => {
     const { title = "", description = "" } = todo;
     try {
@@ -61,7 +72,7 @@ export default function TodoListPage() {
   return (
     <div className="flex flex-col items-center gap-6 min-w-[300px] max-w-[500px] w-[80%]">
       <h3>Todo</h3>
-      <Todo.List todos={todos} onDelete={handleDelete} />
+      <Todo.List todos={todos} onDelete={handleDelete} onEdit={handleEdit} />
       <Button
         className="flex justify-center items-center gap-2"
         color="secondary"

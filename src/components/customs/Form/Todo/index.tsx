@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { ITodo, ITodoFormProps } from "@/interfaces/components/Form";
 
 const initialTodo: ITodo = {
-  id: "",
+  _id: "",
   title: "",
   description: ""
 };
@@ -15,7 +15,7 @@ export default function TodoForm({ onSubmit, value, isEdit = false }: ITodoFormP
 
   useEffect(() => {
     setTodo({
-      id: value?.id ?? initialTodo.id,
+      _id: value?._id ?? initialTodo._id,
       title: value?.title ?? initialTodo.title,
       description: value?.description ?? initialTodo.description
     });
