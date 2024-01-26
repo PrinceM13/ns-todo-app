@@ -7,14 +7,14 @@ import { IRedirectIfAuthenticatedProps } from "@/interfaces/routes";
 import { localStorage } from "@/utils";
 
 export default function RedirectIfAuthenticated({ children }: IRedirectIfAuthenticatedProps) {
-  const route = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     const accessToken = localStorage.getAccessToken();
     if (accessToken) {
-      route.push("/todos");
+      router.push("/todos");
     }
-  }, [route]);
+  }, [router]);
 
   return <>{children}</>;
 }

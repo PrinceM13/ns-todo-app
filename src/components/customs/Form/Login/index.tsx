@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 
-import { Input } from "@/components/customs";
-import { Button } from "@/components/bases";
+import { Button, Input } from "@/components/bases";
 
 import { AuthFrame } from "../Frame";
 import { api } from "@/service";
