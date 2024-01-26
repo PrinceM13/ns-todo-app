@@ -9,10 +9,11 @@ import { useModal } from "@/hooks";
 import { localStorage } from "@/utils";
 import { api } from "@/service";
 
-import { Todo } from "@/components/customs";
+import { Form, Todo } from "@/components/customs";
 import { Button } from "@/components/bases";
 
 import { IApiTodo } from "@/interfaces/api";
+import { ITodo } from "@/interfaces/components/Form";
 
 export default function TodoListPage() {
   const router = useRouter();
@@ -35,8 +36,26 @@ export default function TodoListPage() {
   }, [router]);
 
   const handleDelete = (id: string) => {
+    // * update ui
     const newTodos = todos.filter((todo) => todo["_id"] !== id);
     setTodos(newTodos);
+  };
+
+  const handleCreate = async (todo: ITodo) => {
+    const { title = "", description = "" } = todo;
+    try {
+      const res: IApiTodo = await api.todos.create({
+        title,
+        description
+      });
+
+      // * update ui
+      setTodos([...todos, res]);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      closeModal();
+    }
   };
 
   return (
@@ -51,11 +70,11 @@ export default function TodoListPage() {
         onClick={openModal}
       >
         <PlusIcon className="h-6 w-6" aria-hidden="true" />
-        Create
+        Add New Todo
       </Button>
 
-      <CustomModal title="Test">
-        <div>Modal</div>
+      <CustomModal>
+        <Form.Todo onSubmit={handleCreate} />
       </CustomModal>
     </div>
   );

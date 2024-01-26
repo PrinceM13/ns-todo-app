@@ -1,8 +1,8 @@
 "use client";
 
-import { IIAuthFrameProps } from "@/interfaces/components/Form";
+import { IAuthFrameProps } from "@/interfaces/components/Form";
 
-export default function AuthFrame({ children, className, onSubmit = () => {} }: IIAuthFrameProps) {
+export default function AuthFrame({ children, className, onSubmit = () => {} }: IAuthFrameProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit();

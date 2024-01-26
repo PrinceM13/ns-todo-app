@@ -12,3 +12,7 @@ export interface IInputFrameProps extends IInputProps {
 export interface IInputTextFieldProps extends IInputProps {
   onChange?: (value: string) => void;
 }
+
+export interface IInputTextAreaProps extends IInputProps {
+  onChange?: (value: string) => void;
+}

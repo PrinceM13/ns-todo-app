@@ -2,24 +2,23 @@
 
 import InputFrame from "../Frame";
 
-import { IInputTextFieldProps } from "@/interfaces/components/Input";
+import { IInputTextAreaProps } from "@/interfaces/components/Input";
 
-export default function InputTextField({
-  type = "text",
+export default function InputTextArea({
   label,
   placeholder,
   value,
   onChange = () => {}
-}: IInputTextFieldProps) {
+}: IInputTextAreaProps) {
   return (
     <div className="flex flex-col gap-2">
       {label && <label>{label}</label>}
       <InputFrame>
-        <input
+        <textarea
           className="w-full bg-transparent outline-none"
-          type={type}
           placeholder={placeholder}
           value={value}
+          rows={4}
           onChange={(e) => onChange(e.target.value)}
         />
       </InputFrame>
