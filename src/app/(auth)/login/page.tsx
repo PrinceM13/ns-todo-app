@@ -1,5 +1,10 @@
 import { Form } from "@/components/customs";
+import { RedirectIfAuthenticated } from "@/routes";
 
 export default function LoginPage() {
-  return <Form.Login />;
+  return (
+    <RedirectIfAuthenticated>
+      <Form.Login />
+    </RedirectIfAuthenticated>
+  );
 }
