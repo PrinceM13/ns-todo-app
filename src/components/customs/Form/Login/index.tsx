@@ -12,9 +12,11 @@ import { Button, Input } from "@/components/bases";
 import { AuthFrame } from "../Frame";
 
 import { ILogin } from "@/interfaces/useForm/Login";
+import { useSetUser } from "@/hooks";
 
 export default function LoginForm() {
   const router = useRouter();
+  const { setUser } = useSetUser();
 
   const {
     control,
@@ -25,10 +27,19 @@ export default function LoginForm() {
   const handleLogin: SubmitHandler<ILogin> = async (value) => {
     try {
       const res = await api.login(value);
-      localStorage.setAccessToken(res.token);
+      const accessToken = res.token;
+
+      // * set access token to local storage
+      localStorage.setAccessToken(accessToken);
+
+      // * set user to store
+      const id = setUser(accessToken);
+
+      alert(`welcome ${id} !`);
       router.push("/todos");
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
+      alert(await err.response.data.message);
     }
   };
 

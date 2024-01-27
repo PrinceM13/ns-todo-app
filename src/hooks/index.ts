@@ -1,3 +1,4 @@
 import useModal from "./useModal";
+import useSetUser from "./useSetUser";
 
-export { useModal };
+export { useModal, useSetUser };
