@@ -1,14 +1,20 @@
+"use client";
+
+import { useSnapshot } from "valtio";
+
 import { useModal } from "@/hooks";
 
 import { api } from "@/service";
+import { valtioState } from "@/stores";
 
 import { Form } from "@/components/customs";
 
 import { ITodo } from "@/interfaces/components/Form";
 import { IApiTodo } from "@/interfaces/api";
-import { IEditModalProps, IUseEditTodoProps } from "@/interfaces/hook/useTodo";
+import { IEditModalProps } from "@/interfaces/hook/useTodo";
 
-export default function useEditTodo({ onEdit }: IUseEditTodoProps) {
+export default function useEditTodo() {
+  const todos = useSnapshot(valtioState.general).todos;
   const { CustomModal, openModal, closeModal } = useModal();
 
   // * edit todo action
@@ -20,7 +26,13 @@ export default function useEditTodo({ onEdit }: IUseEditTodoProps) {
       const res: IApiTodo = await api.todos.update({ id: _id, title, description });
 
       // * update ui
-      onEdit(res);
+      const newTodos = todos.map((todo) => {
+        if (todo["_id"] === res._id) {
+          return res;
+        }
+        return todo;
+      });
+      valtioState.general.todos = newTodos;
     } catch (err) {
       console.log(err);
     } finally {

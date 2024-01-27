@@ -1,14 +1,18 @@
 "use client";
 
+import { useSnapshot } from "valtio";
+
 import { useModal } from "@/hooks";
 
 import { api } from "@/service";
+import { valtioState } from "@/stores";
 
 import { Alert } from "@/components/customs";
 
-import { IDeleteAlertModalProps, IUseDeleteTodoProps } from "@/interfaces/hook/useTodo";
+import { IDeleteAlertModalProps } from "@/interfaces/hook/useTodo";
 
-export default function useDeleteTodo({ onDelete }: IUseDeleteTodoProps) {
+export default function useDeleteTodo() {
+  const todos = useSnapshot(valtioState.general).todos;
   const { CustomModal, openModal, closeModal } = useModal();
 
   // * delete todo action
@@ -19,7 +23,7 @@ export default function useDeleteTodo({ onDelete }: IUseDeleteTodoProps) {
       await api.todos.remove({ id });
 
       // * update ui
-      onDelete(id);
+      valtioState.general.todos = todos.filter((todo) => todo["_id"] !== id);
     } catch (err) {
       console.log(err);
     } finally {
