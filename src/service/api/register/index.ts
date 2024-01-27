@@ -1,4 +1,4 @@
-import { IRegister } from "@/interfaces/useForm/Login";
+import { IRegister } from "@/interfaces/hook/useForm";
 import { axios } from "@/utils";
 
 const register = async ({ username, password }: IRegister) => {

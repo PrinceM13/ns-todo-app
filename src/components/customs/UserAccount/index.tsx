@@ -1,14 +1,15 @@
 "use client";
 
+import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 
-import { valtioState } from "@/stores";
-import { useEffect } from "react";
-import { localStorage } from "@/utils";
 import { useSetUser } from "@/hooks";
 
+import { valtioState } from "@/stores";
+import { localStorage } from "@/utils";
+
 export default function UserAccount() {
-  const userId = useSnapshot(valtioState.user)._id;
+  const userId = useSnapshot(valtioState.general).user._id;
   const { setUser } = useSetUser();
 
   useEffect(() => {

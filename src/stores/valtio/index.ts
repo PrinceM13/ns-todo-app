@@ -1,10 +1,10 @@
-import { ITokenUser } from "@/interfaces/api";
 import { proxy } from "valtio";
 
-const user: ITokenUser = proxy({
-  exp: 0,
-  iat: 0,
-  _id: ""
+import { IApiTodo, ITokenUser } from "@/interfaces/api";
+
+const general: { todos: IApiTodo[]; user: ITokenUser } = proxy({
+  todos: [],
+  user: { exp: 0, iat: 0, _id: "" }
 });
 
-export { user };
+export { general };

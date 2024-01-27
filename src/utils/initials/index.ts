@@ -1,4 +1,4 @@
-import { ILogin, IRegister } from "@/interfaces/useForm/Login";
+import { ILogin, IRegister } from "@/interfaces/hook/useForm";
 
 const login: ILogin = {
   username: "",

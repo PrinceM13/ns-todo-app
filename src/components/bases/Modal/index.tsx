@@ -12,7 +12,7 @@ export default function Modal({ children, isOpen, onClose, title, type = "info" 
     <>
       {isOpen && (
         <div
-          className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-[#000000aa]"
+          className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-[#000000aa] z-50"
           onMouseDown={onClose}
         >
           <div
