@@ -9,9 +9,9 @@ import { api } from "@/service";
 
 import { Button, Input } from "@/components/bases";
 
-import { AuthFrame } from "../Frame";
+import AuthFrame from "@/components/customs/Form/Frame/Auth";
 
-import { IRegister } from "@/interfaces/useForm/Login";
+import { IRegister } from "@/interfaces/hook/useForm";
 
 export default function RegisterForm() {
   const router = useRouter();

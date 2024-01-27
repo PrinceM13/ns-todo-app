@@ -9,9 +9,9 @@ import { api } from "@/service";
 
 import { Button, Input } from "@/components/bases";
 
-import { AuthFrame } from "../Frame";
+import AuthFrame from "@/components/customs/Form/Frame/Auth";
 
-import { ILogin } from "@/interfaces/useForm/Login";
+import { ILogin } from "@/interfaces/hook/useForm";
 import { useSetUser } from "@/hooks";
 
 export default function LoginForm() {

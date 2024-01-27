@@ -1,6 +1,6 @@
 "use client";
 
-import InputFrame from "../Frame";
+import InputFrame from "@/components/bases/Input/Frame";
 
 import { IInputTextFieldProps } from "@/interfaces/components/Input";
 
