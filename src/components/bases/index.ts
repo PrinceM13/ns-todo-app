@@ -1,3 +1,6 @@
+import Modal from "./Modal";
 import Button from "./Button";
 
-export { Button };
+import * as Input from "./Input";
+
+export { Modal, Button, Input };

@@ -1,7 +1,8 @@
 "use client";
 
-import { IInputTextFieldProps } from "@/interfaces/components/Input";
 import InputFrame from "../Frame";
+
+import { IInputTextFieldProps } from "@/interfaces/components/Input";
 
 export default function InputTextField({
   type = "text",

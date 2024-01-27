@@ -1,7 +1,7 @@
 interface IInputProps {
   label?: string;
   value?: string;
-  type?: string;
+  type?: "text" | "number" | "password" | "email";
   placeholder?: string;
 }
 
@@ -10,5 +10,9 @@ export interface IInputFrameProps extends IInputProps {
 }
 
 export interface IInputTextFieldProps extends IInputProps {
+  onChange?: (value: string) => void;
+}
+
+export interface IInputTextAreaProps extends IInputProps {
   onChange?: (value: string) => void;
 }
