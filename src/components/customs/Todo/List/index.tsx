@@ -112,7 +112,7 @@ export default function TodoList({ todos, onDelete, onEdit }: ITodoListProps) {
                 {convert.date.toGregorian(new Date(todo.createdAt))}
               </div>
             </div>
-            <div className="text-neutral-500">{todo.description}</div>
+            <div className="text-neutral-500 whitespace-pre-line">{todo.description}</div>
           </div>
         );
       })}
