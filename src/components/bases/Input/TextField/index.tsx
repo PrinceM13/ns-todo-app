@@ -9,12 +9,13 @@ export default function InputTextField({
   label,
   placeholder,
   value,
+  error,
   onChange = () => {}
 }: IInputTextFieldProps) {
   return (
     <div className="flex flex-col gap-2">
       {label && <label>{label}</label>}
-      <InputFrame>
+      <InputFrame error={error}>
         <input
           className="w-full bg-transparent outline-none"
           type={type}

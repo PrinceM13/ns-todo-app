@@ -9,7 +9,7 @@ export default function DeleteAlert({ title, onCancel, onConfirm }: IDeleteAlert
         Do you want to delete <span className="text-rose-600 font-bold">{`" ${title} "`}</span> ?
       </div>
       <div className="flex gap-2 self-end">
-        <Button variant="outlined" color="secondary" onClick={onCancel}>
+        <Button variant="outlined" color="error" onClick={onCancel}>
           Cancel
         </Button>
         <Button color="error" onClick={onConfirm}>

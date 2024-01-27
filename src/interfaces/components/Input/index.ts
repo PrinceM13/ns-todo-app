@@ -3,6 +3,7 @@ interface IInputProps {
   value?: string;
   type?: "text" | "number" | "password" | "email";
   placeholder?: string;
+  error?: string;
 }
 
 export interface IInputFrameProps extends IInputProps {

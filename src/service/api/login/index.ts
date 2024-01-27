@@ -1,15 +1,13 @@
 import { axios } from "@/utils";
 
-const login = async ({ username, password }: { username: string; password: string }) => {
-  try {
-    const res = await axios.post("/users/auth", {
-      username,
-      password
-    });
-    return res.data;
-  } catch (err) {
-    console.log(err);
-  }
+import { ILogin } from "@/interfaces/useForm/Login";
+
+const login = async ({ username, password }: ILogin) => {
+  const res = await axios.post("/users/auth", {
+    username,
+    password
+  });
+  return res.data;
 };
 
 export default login;

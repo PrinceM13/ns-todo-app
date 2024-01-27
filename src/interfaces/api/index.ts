@@ -6,3 +6,9 @@ export interface IApiTodo {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface ITokenUser {
+  exp: number;
+  iat: number;
+  _id: string;
+}

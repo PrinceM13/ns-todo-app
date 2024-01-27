@@ -10,7 +10,12 @@ const initialTodo: ITodo = {
   title: "",
   description: ""
 };
-export default function TodoForm({ onSubmit, value, isEdit = false }: ITodoFormProps) {
+export default function TodoForm({
+  onSubmit,
+  value,
+  onCancel = () => {},
+  isEdit = false
+}: ITodoFormProps) {
   const [todo, setTodo] = useState<ITodo>(value ?? initialTodo);
 
   useEffect(() => {
@@ -41,9 +46,14 @@ export default function TodoForm({ onSubmit, value, isEdit = false }: ITodoFormP
         onChange={(value) => setTodo({ ...todo, description: value })}
       />
 
-      <Button type="submit" className="self-center" color="secondary" shadow>
-        {isEdit ? "Save" : "Create"}
-      </Button>
+      <div className="self-end flex gap-2">
+        <Button variant="outlined" color={isEdit ? "primary" : "secondary"} onClick={onCancel}>
+          Cancel
+        </Button>
+        <Button type="submit" color={isEdit ? "primary" : "secondary"} shadow>
+          {isEdit ? "Save" : "Create"}
+        </Button>
+      </div>
     </form>
   );
 }
