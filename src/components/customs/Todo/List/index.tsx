@@ -6,6 +6,7 @@ import { XCircleIcon } from "@heroicons/react/20/solid";
 import { useModal } from "@/hooks";
 
 import { api } from "@/service";
+import { convert } from "@/utils";
 
 import { Alert, Form } from "@/components/customs";
 
@@ -29,14 +30,20 @@ export default function TodoList({ todos, onDelete, onEdit }: ITodoListProps) {
     setModal({
       type: "success",
       title: "",
-      content: <Form.Todo value={todo} onSubmit={(newTodo) => handleEdit(newTodo)} isEdit />
+      content: (
+        <Form.Todo
+          value={todo}
+          onSubmit={(newTodo) => handleEdit(newTodo)}
+          onCancel={closeModal}
+          isEdit
+        />
+      )
     });
     openModal();
   };
 
   const handleEdit = async (todo: ITodo) => {
     const { _id = "", title = "", description = "" } = todo;
-    console.log(todo);
     if (!_id) return;
 
     try {
@@ -99,9 +106,13 @@ export default function TodoList({ todos, onDelete, onEdit }: ITodoListProps) {
                 handleOpenDeleteModal(todo);
               }}
             />
-            <div>{todo.title}</div>
-            <div>{todo.description}</div>
-            <div>{todo.createdAt}</div>
+            <div className="flex justify-between">
+              <h5>{todo.title}</h5>
+              <div className="text-neutral-400">
+                {convert.date.toGregorian(new Date(todo.createdAt))}
+              </div>
+            </div>
+            <div className="text-neutral-500">{todo.description}</div>
           </div>
         );
       })}

@@ -12,6 +12,7 @@ export interface ITodo {
 
 export interface ITodoFormProps {
   onSubmit: (todo: ITodo) => void;
+  onCancel?: () => void;
   value?: ITodo;
   isEdit?: boolean;
 }

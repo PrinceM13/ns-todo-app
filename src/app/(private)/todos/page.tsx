@@ -85,7 +85,7 @@ export default function TodoListPage() {
       </Button>
 
       <CustomModal>
-        <Form.Todo onSubmit={handleCreate} />
+        <Form.Todo onSubmit={handleCreate} onCancel={closeModal} />
       </CustomModal>
     </div>
   );

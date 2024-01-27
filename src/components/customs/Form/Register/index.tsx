@@ -68,7 +68,9 @@ export default function RegisterForm() {
           )}
         />
       </div>
-      <Button type="submit">Create</Button>
+      <Button type="submit" shadow>
+        Create
+      </Button>
     </AuthFrame>
   );
 }

@@ -73,7 +73,9 @@ export default function LoginForm() {
           )}
         />
       </div>
-      <Button type="submit">Login</Button>
+      <Button type="submit" shadow>
+        Login
+      </Button>
     </AuthFrame>
   );
 }
