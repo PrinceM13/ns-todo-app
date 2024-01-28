@@ -7,13 +7,27 @@ const titleTextColor = {
   error: "text-rose-600"
 };
 
-export default function Modal({ children, isOpen, onClose, title, type = "info" }: IModalProps) {
+export default function Modal({
+  children,
+  isOpen,
+  onClose = () => {},
+  title,
+  disableClickOutsideClose,
+  type = "info"
+}: IModalProps) {
+  const handleClickOutside = (e: any) => {
+    if (disableClickOutsideClose) return;
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
     <>
       {isOpen && (
         <div
           className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-[#000000aa] z-50"
-          onMouseDown={onClose}
+          onMouseDown={handleClickOutside}
         >
           <div
             className="min-w-[300px] rounded-lg bg-white"

@@ -8,11 +8,10 @@ import { Todo } from "@/components/customs";
 import { Button } from "@/components/bases";
 
 export default function TodoListPage() {
-  useTodo.GetAll(); // * get user todos from api
   const { CreateTodoModal, openCreateModal } = useTodo.Create();
 
   return (
-    <div className="flex flex-col items-center gap-6 min-w-[300px] max-w-[500px] w-[80%]">
+    <main className="flex flex-col items-center gap-6 min-w-[300px] max-w-[500px] w-[80%]">
       <h3>Todo</h3>
       <Todo.List />
       <Button
@@ -27,6 +26,6 @@ export default function TodoListPage() {
       </Button>
 
       <CreateTodoModal />
-    </div>
+    </main>
   );
 }

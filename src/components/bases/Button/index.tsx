@@ -75,6 +75,7 @@ export default function Button({
       ${rounded ? "rounded-full" : "rounded-md"}
       ${className}
       ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"}
+      transition duration-300 ease-in-out
       `}
       onClick={disabled ? undefined : handleClick}
     >

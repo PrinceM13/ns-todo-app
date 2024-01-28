@@ -1,3 +1,4 @@
 import List from "./List";
+import Table from "./Table";
 
-export { List };
+export { List, Table };

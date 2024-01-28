@@ -1,3 +1,4 @@
+import Table from "./Table";
 import Logout from "./Logout";
 
-export { Logout };
+export { Table, Logout };
