@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { convert, generate } from "@/utils";
@@ -9,6 +9,7 @@ import { valtioState } from "@/stores";
 import { Button } from "@/components/bases";
 
 import { ITodoExportData, ITodoTableColumn, ITodoTableData } from "@/interfaces/components/Todo";
+import { useModal, useScreenSize } from "@/hooks";
 
 const columns: ITodoTableColumn[] = [
   {
@@ -35,6 +36,9 @@ const columns: ITodoTableColumn[] = [
 
 export default function TodosTable() {
   const todos = useSnapshot(valtioState.general).todos;
+  const { windowWidth } = useScreenSize();
+  const { CustomModal, openModal, closeModal } = useModal();
+
   const [exportData, setExportData] = useState<ITodoExportData[]>([]);
 
   const dataList = todos?.reduce((acc: (string | number)[][], todo, idx) => {
@@ -44,6 +48,14 @@ export default function TodosTable() {
   }, []);
 
   const tableData: ITodoTableData = { columns, data: dataList };
+
+  useEffect(() => {
+    if (windowWidth < 768) {
+      openModal();
+    } else {
+      closeModal();
+    }
+  }, [windowWidth, openModal, closeModal]);
 
   return (
     <>
@@ -87,6 +99,20 @@ export default function TodosTable() {
           </div>
         )}
       </pre>
+
+      {/* modal for mobile */}
+      <CustomModal disableClickOutsideClose title="Optimize Your Experience" type="warning">
+        <div className="flex flex-col gap-8">
+          <h5 className="max-w-[220px] sm:max-w-[360px]">
+            Please open this page on{" "}
+            <span className="text-xl text-teal-600">desktop or tablet</span> to see proper table
+            content.
+          </h5>
+          <Button className="self-center" linkTo="/todos">
+            Back to Todo List
+          </Button>
+        </div>
+      </CustomModal>
     </>
   );
 }

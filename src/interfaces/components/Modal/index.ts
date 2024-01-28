@@ -4,4 +4,5 @@ export interface IModalProps {
   onClose?: () => void;
   title?: string;
   type?: "info" | "success" | "warning" | "error";
+  disableClickOutsideClose?: boolean;
 }
