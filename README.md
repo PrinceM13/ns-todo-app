@@ -9,10 +9,13 @@
 ```bash
 # 1. clone project from github.
 git clone https://github.com/PrinceM13/ns-todo-app.git
+
 # 2. move into /ns-todo-app.
 cd ns-todo-app
+
 # 3. install all dependencies.
 npm install
+
 # 4. create .env.local file with api url.
 echo "NEXT_PUBLIC_API_URL=https://candidate.neversitup.com/todo" >> .env.local
 ```
