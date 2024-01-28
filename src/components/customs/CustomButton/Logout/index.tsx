@@ -16,6 +16,7 @@ export default function LogoutButton() {
         localStorage.removeAccessToken();
         router.push("/");
       }}
+      shadow
     >
       Logout
     </Button>
